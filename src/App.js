@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './images/logo.png';
+import './index.css';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
           <header className="header header_margin">
             <img
               className="logo"
-              src="<%=require('./images/logo.png')%>"
+              src={logo}
               alt="Логотип"
             />
           </header>
