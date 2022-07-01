@@ -1,47 +1,16 @@
-import logo from './images/logo.png';
-import './index.css';
+import '../index.css';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
 
 function App() {
   return (
     <div className="App">
       <body className="page">
         <div className="page__container">
-          <header className="header header_margin">
-            <img
-              className="logo"
-              src={logo}
-              alt="Логотип"
-            />
-          </header>
-          <main className="content">
-            <section className="profile profile_margin">
-              <div className="profile__avatar"></div>
-              <div className="profile__info">
-                <div className="profile__wrapper">
-                  <h1 className="profile__title">Жак-Ив Кусто</h1>
-                  <button
-                    className="profile__edit-button"
-                    type="button"
-                    aria-label="Редактировать"
-                  ></button>
-                </div>
-                <p className="profile__subtitle">Исследователь океана</p>
-              </div>
-              <button
-                className="profile__add-button"
-                type="button"
-                aria-label="Добавить"
-              ></button>
-            </section>
-            <section className="cards cards_margin">
-              <ul className="cards__list"></ul>
-            </section>
-          </main>
-          <footer className="footer footer_margin">
-            <p className="footer__text" lang="en">
-              © 2020 Mesto Russia
-            </p>
-          </footer>
+          <Header />
+          <Main />
+          <Footer />
         </div>
 
         <div className="popup popup_type_edit">
