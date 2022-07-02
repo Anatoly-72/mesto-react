@@ -1,8 +1,10 @@
-function Main() {
+// import React from 'react';
+
+function Main(props) {
   return (
     <main className="content">
       <section className="profile profile_margin">
-        <div className="profile__avatar" onClick={handleEditAvatarClick}></div>
+        <div className="profile__avatar" onClick={props.onEditAvatar}></div>
         <div className="profile__info">
           <div className="profile__wrapper">
             <h1 className="profile__title">Жак-Ив Кусто</h1>
@@ -10,7 +12,7 @@ function Main() {
               className="profile__edit-button"
               type="button"
               aria-label="Редактировать"
-              onClick={handleEditProfileClick}
+              onClick={props.onEditProfile}
             ></button>
           </div>
           <p className="profile__subtitle">Исследователь океана</p>
@@ -19,7 +21,7 @@ function Main() {
           className="profile__add-button"
           type="button"
           aria-label="Добавить"
-          onClick={handleAddPlaceClick}
+          onClick={props.onAddPlace}
         ></button>
       </section>
       <section className="cards cards_margin">
@@ -27,18 +29,6 @@ function Main() {
       </section>
     </main>
   );
-
-  function handleEditAvatarClick() {
-    document.querySelector('.popup_type_avatar').classList.add('popup_active');
-  }
-
-  function handleEditProfileClick() {
-    document.querySelector('.popup_type_edit').classList.add('popup_active');
-  }
-
-  function handleAddPlaceClick() {
-    document.querySelector('.popup_type_new-card').classList.add('popup_active');
-  }
 }
 
 export default Main;

@@ -1,16 +1,39 @@
 import '../index.css';
+
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
+
+  function handleEditAvatarClick() {
+      document.querySelector('.popup_type_avatar').classList.add('popup_active');
+  }
+
+  function handleEditProfileClick() {
+    document.querySelector('.popup_type_edit').classList.add('popup_active');
+  }
+
+  function handleAddPlaceClick() {
+    document
+      .querySelector('.popup_type_new-card')
+      .classList.add('popup_active');
+  }
+  
   return (
     <div className="page">
       <div className="page__container">
         <Header />
-        <Main />
+        <Main
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+        />
         <Footer />
       </div>
+
       <div className="popup popup_type_edit">
         <div className="popup__container">
           <h3 className="popup__title">Редактировать профиль</h3>
@@ -151,6 +174,7 @@ function App() {
             <button
               className="popup__form-btn popup__form-btn_prevent"
               type="submit"
+              name="button"
               aria-label="Да"
             >
               Да
