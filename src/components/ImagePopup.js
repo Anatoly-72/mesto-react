@@ -1,10 +1,23 @@
-function ImagePopup() {
+function ImagePopup(props) {
   return (
-    <div className="popup popup_type_image">
+    <div
+      className={`popup popup_type ${props.card ? 'popup_active' : ''}
+      }`}
+    >
       <figure className="popup__container-image">
-        <img className="popup__image" src="#" alt="#" />
-        <figcaption className="popup__figcaption"></figcaption>
-        <button className="popup__close" type="button"></button>
+        <img
+          className="popup__image"
+          src={props.card ? props.card.link : ''}
+          alt={props.card ? props.card.name : ''}
+        />
+        <figcaption className="popup__figcaption">
+          {props.card ? props.card.name : ''}
+        </figcaption>
+        <button
+          className="popup__close"
+          type="button"
+          onClick={props.onClose}
+        ></button>
       </figure>
     </div>
   );

@@ -1,6 +1,5 @@
 import '../index.css';
 import React from 'react';
-import api from '../utils/api';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -12,6 +11,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -25,11 +25,17 @@ function App() {
     setIsEditAvatarPopupOpen(true)
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(null);
   }
+
 
   return (
     <div className="page">
@@ -39,6 +45,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
 
@@ -136,49 +143,10 @@ function App() {
           ></span>
         </PopupWithForm>
 
-        <div className="popup popup_type_image">
-          <figure className="popup__container-image">
-            <img className="popup__image" src="#" alt="#" />
-            <figcaption className="popup__figcaption"></figcaption>
-            <button className="popup__close" type="button"></button>
-          </figure>
-        </div>
-        <div className="popup popup_type_prevent">
-          <div className="popup__container">
-            <h3 className="popup__title">Вы уверены?</h3>
-            <form
-              className="popup__form popup__form_prevent"
-              action="#"
-              name="formPrevent"
-              noValidate
-            >
-              <button
-                className="popup__form-btn popup__form-btn_prevent"
-                type="submit"
-                name="button"
-                aria-label="Да"
-              >
-                Да
-              </button>
-            </form>
-            <button className="popup__close" type="button"></button>
-          </div>
-        </div>
-        <template className="template">
-          <li className="cards__item">
-            <div className="card">
-              <img className="card__img" src="#" alt="#" />
-              <div className="card__trash"></div>
-              <div className="card__wrapper">
-                <h2 className="card__title"></h2>
-                <div className="card__icon-like">
-                  <button className="card__icon" type="button"></button>
-                  <span className="card__like">0</span>
-                </div>
-              </div>
-            </div>
-          </li>
-        </template>
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}
+        />
       </div>
     </div>
   );
