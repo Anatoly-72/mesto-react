@@ -1,13 +1,14 @@
 function ImagePopup(props) {
   return (
     <div
-      className={`popup popup_type ${props.card ? 'popup_active' : ''}
+      className={`popup popup_type ${props.name} ${
+        props.card && 'popup_active'
       }`}
     >
       <figure className="popup__container-image">
         <img
           className="popup__image"
-          src={props.card ? props.card.link : ''}
+          src={props.card?.link}
           alt={props.card ? props.card.name : ''}
         />
         <figcaption className="popup__figcaption">

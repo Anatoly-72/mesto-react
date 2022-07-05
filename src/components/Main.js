@@ -1,35 +1,24 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../utils/api';
 import Card from './Card';
 
 function Main(props) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
 
-  const [cards, setСards] = React.useState([]);
-
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const [cards, setСards] = useState([]);
 
   useEffect(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        setСards(res);
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, initialCards]) => {
+        setUserName(userData.name);
+        setUserDescription(userData.about);
+        setUserAvatar(userData.avatar);
+        setСards(initialCards);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`Ошибка: ${err}`);
       });
   }, []);
 
@@ -63,10 +52,10 @@ function Main(props) {
 
       <section className="cards cards_margin">
         <ul className="cards__list">
-          {cards.map((card, id) => (
+          {cards.map((card) => (
             <Card
               card={card}
-              key={id}
+              key={card._id}
               name={card.name}
               likes={card.likes.length}
               link={card.link}
