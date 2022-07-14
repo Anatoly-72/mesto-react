@@ -1,20 +1,18 @@
+import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import api from '../utils/api';
 import Card from './Card';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
+
+  const currentUser = useContext(CurrentUserContext);
 
   const [cards, setСards] = useState([]);
 
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, initialCards]) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
+    Promise.all([api.getInitialCards()])
+      .then(([initialCards]) => {
         setСards(initialCards);
       })
       .catch((err) => {
@@ -28,11 +26,11 @@ function Main(props) {
         <div
           className="profile__avatar"
           onClick={props.onEditAvatar}
-          style={{ backgroundImage: `url(${userAvatar})` }}
+          style={{ backgroundImage: `url(${currentUser.avatar})` }}
         ></div>
         <div className="profile__info">
           <div className="profile__wrapper">
-            <h1 className="profile__title">{userName}</h1>
+            <h1 className="profile__title">{currentUser.name}</h1>
             <button
               className="profile__edit-button"
               type="button"
@@ -40,7 +38,7 @@ function Main(props) {
               onClick={props.onEditProfile}
             ></button>
           </div>
-          <p className="profile__subtitle">{userDescription}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button
           className="profile__add-button"
