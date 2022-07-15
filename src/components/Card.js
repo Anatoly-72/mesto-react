@@ -10,6 +10,10 @@ function Card({ card, onCardClick }) {
     isOwn ? 'card__trash_visible' : ''
   }`;
 
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+  const cardLikeButtonClassName = `card__icon ${isLiked ? 'card__icon_active' : ''}`;
+
   function handleClick() {
     onCardClick(card);
   }
@@ -27,7 +31,7 @@ function Card({ card, onCardClick }) {
         <div className="card__wrapper">
           <h2 className="card__title">{card.name}</h2>
           <div className="card__icon-like">
-            <button className="card__icon" type="button"></button>
+            <button className={cardLikeButtonClassName} type="button"></button>
             <span className="card__like">{card.likes.lenght}</span>
           </div>
         </div>
