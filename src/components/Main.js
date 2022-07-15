@@ -8,18 +8,6 @@ function Main(props) {
 
   const currentUser = useContext(CurrentUserContext);
 
-  const [cards, setСards] = useState([]);
-
-  useEffect(() => {
-    Promise.all([api.getInitialCards()])
-      .then(([initialCards]) => {
-        setСards(initialCards);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-  }, []);
-
   return (
     <main className="content">
       <section className="profile profile_margin">
@@ -50,7 +38,7 @@ function Main(props) {
 
       <section className="cards cards_margin">
         <ul className="cards__list">
-          {cards.map((card) => (
+          {props.cards.map((card) => (
             <Card
               card={card}
               key={card._id}

@@ -15,20 +15,13 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const [currentUser, setCurrentUser] = useState({});
-
-  // useEffect(() => {
-  //   api
-  //     .getUserInfo()
-  //     .then((res) => {
-  //       setCurrentUser(res);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+  const [cards, setСards] = useState([]);
 
   useEffect(() => {
-    Promise.all([api.getUserInfo()])
-      .then(([userData]) => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, cards]) => {
         setCurrentUser(userData);
+        setСards(cards);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -68,6 +61,7 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
+            cards={cards}
           />
           <Footer />
 
