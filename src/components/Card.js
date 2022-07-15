@@ -1,4 +1,15 @@
+import { useContext } from 'react';
+import CurrentUserContext from '../contexts/CurrentUserContext.js';
+
 function Card({ card, onCardClick }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  const isOwn = card.owner._id === currentUser._id;
+
+  const cardDeleteButtonClassName = `card__trash ${
+    isOwn ? 'card__trash_visible' : ''
+  }`;
+
   function handleClick() {
     onCardClick(card);
   }
@@ -12,7 +23,7 @@ function Card({ card, onCardClick }) {
           alt={card.name}
           onClick={handleClick}
         />
-        <div className="card__trash"></div>
+        <div className={cardDeleteButtonClassName}></div>
         <div className="card__wrapper">
           <h2 className="card__title">{card.name}</h2>
           <div className="card__icon-like">
