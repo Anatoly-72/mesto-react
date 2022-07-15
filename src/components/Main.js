@@ -1,6 +1,4 @@
 import { useContext } from 'react';
-import { useEffect, useState } from 'react';
-import api from '../utils/api';
 import Card from './Card';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
@@ -46,6 +44,7 @@ function Main(props) {
               likes={card.likes.length}
               link={card.link}
               onCardClick={props.onCardClick}
+              onCardLike={props.onCardLike}
             />
           ))}
         </ul>

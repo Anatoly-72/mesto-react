@@ -1,5 +1,5 @@
-import '../index.css';
 import { useState, useEffect } from 'react';
+import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -51,6 +51,34 @@ function App() {
     setSelectedCard(null);
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    if (!isLiked) {
+      api
+        .setLike(card._id)
+        .then((newCard) => {
+          setСards((state) =>
+            state.map((c) => (c._id === card._id ? newCard : c))
+          );
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      api
+        .deleteLike(card._id)
+        .then((newCard) => {
+          setСards((state) =>
+            state.map((c) => (c._id === card._id ? newCard : c))
+          );
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -62,6 +90,7 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             cards={cards}
+            onCardLike={handleCardLike}
           />
           <Footer />
 

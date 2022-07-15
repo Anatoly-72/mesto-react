@@ -1,5 +1,5 @@
 .card__trash {
-  display: inline-block;
+  display: none;
   width: 18px;
   height: 19px;
   background-image: url(../../../images/trash.svg);
@@ -9,7 +9,6 @@
   top: 20px;
   right: 20px;
   cursor: pointer;
-  opacity: 0;
   transition: .3s ease;
 }
 
