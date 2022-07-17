@@ -50,7 +50,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
               type="button"
               onClick={handleLikeClick}
             ></button>
-            <span className="card__like">{card.likes.lenght}</span>
+            <span className="card__like">{card.likes.length}</span>
           </div>
         </div>
       </div>
