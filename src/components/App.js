@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
-import PopupWithForm from './PopupWithForm.js';
+import AddPlacePopup from './AddPlacePopup.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 import CurrentUserContext from '../contexts/CurrentUserContext.js';
@@ -112,6 +111,16 @@ function App() {
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
 
+  function handleAddPlaceSubmit(data) {
+    api
+      .createCard(data)
+      .then((newCard) => {
+        setСards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -130,7 +139,6 @@ function App() {
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
-            // onCloseClick={handlePopupCloseClick}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
           />
@@ -141,41 +149,11 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
           />
 
-          <PopupWithForm
-            name="new-card"
-            form="addCardForm"
-            title="Новое место"
-            buttonText="Создать"
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              id="title-input"
-              className="popup__form-input"
-              type="text"
-              name="name"
-              placeholder="Название"
-              required
-              minLength="2"
-              maxLength="30"
-            />
-            <span
-              className="popup__error popup__error_place_top popup__error_visible"
-              id="title-input-error"
-            ></span>
-            <input
-              id="link-input"
-              className="popup__form-input"
-              type="url"
-              name="link"
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <span
-              className="popup__error popup__error_place_bottom popup__error_visible"
-              id="link-input-error"
-            ></span>
-          </PopupWithForm>
+            onAddPlace={handleAddPlaceSubmit}
+          />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
